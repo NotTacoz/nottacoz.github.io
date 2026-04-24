@@ -438,8 +438,6 @@
       }
 
       /* ── AWARDS ── */
-      .awards-table {
-      }
       .award-row {
         display: grid;
         grid-template-columns: 36px 1fr auto;
@@ -567,8 +565,8 @@
     <nav>
       <span class="nav-name">Thomas Han</span>
       <div class="nav-links">
-        <a href="about.html">about</a>
-        <a href="projects.html">projects</a>
+        <a href="#about">about</a>
+        <a href="#projects">projects</a>
         <a href="resume.pdf" target="_blank">resume ↗</a>
         <a
           href="mailto:thomas.han.cs@gmail.com"
@@ -624,6 +622,16 @@
     <!-- ── SECTION 1: THE HOOK ── -->
     <div id="hero">
       <h1 class="hero-name">Thomas Han</h1>
+    </div>
+
+    <div class="page-section" id="about">
+      <p class="sec-label">About</p>
+      <p>
+        I am a first-year student at Curtin University studying Mechatronics
+        Engineering (Honours) and Computer Science. I like building systems
+        where math, software, and hardware meet, especially in quantitative
+        trading, robotics, and optimization.
+      </p>
     </div>
 
     <div class="page-section" id="education">
@@ -699,6 +707,49 @@
           </p>
         </div>
       </div>
+    </div>
+
+    <div class="page-section" id="projects">
+      <p class="sec-label">Projects</p>
+
+      <article class="proj-entry">
+        <div class="proj-header">
+          <h3 class="proj-title">Probabilistic EV Model for Sports Markets</h3>
+          <span class="proj-stack">Python · Statistics · Simulation</span>
+        </div>
+        <div class="proj-desc">
+          <p>
+            Built a model-driven workflow to estimate expected value under
+            uncertain outcomes and compare price dislocations in live markets.
+          </p>
+        </div>
+      </article>
+
+      <article class="proj-entry">
+        <div class="proj-header">
+          <h3 class="proj-title">Pipe Navigation Robot</h3>
+          <span class="proj-stack">C++ · A* · Embedded Systems</span>
+        </div>
+        <div class="proj-desc">
+          <p>
+            Designed and prototyped a robot for constrained pipe navigation with
+            grid-based path planning and onboard control logic.
+          </p>
+        </div>
+      </article>
+
+      <article class="proj-entry">
+        <div class="proj-header">
+          <h3 class="proj-title">Profet Supply Chain Risk Platform</h3>
+          <span class="proj-stack">Graph Modeling · Analytics · Product</span>
+        </div>
+        <div class="proj-desc">
+          <p>
+            Co-developed a supply chain risk prototype using directed graph
+            modeling to map dependencies and surface upstream risk propagation.
+          </p>
+        </div>
+      </article>
     </div>
 
     <div class="page-section" id="awards">
