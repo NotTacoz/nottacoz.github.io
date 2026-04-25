@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Anti-FOUC -->
+  <script>
+    (function(){
+      var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+      if(t==='dark')document.documentElement.setAttribute('data-theme','dark');
+    }());
+  </script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TXRE620BBB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TXRE620BBB');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Thomas Han — Selected Projects">
+  <title>Projects — Thomas Han</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:      #f7f7f5;
+      --nav-bg:  rgba(247,247,245,0.95);
+      --text:    #111111;
+      --t2:      #555555;
+      --t3:      #c8c8c8;
+      --accent:  #2a6b8a;
+      --rule:    #e0e0e0;
+      --serif:   'EB Garamond', Georgia, serif;
+      --mono:    'JetBrains Mono', 'Courier New', monospace;
+      --mw:      680px;
+      --pad:     clamp(20px, 5vw, 48px);
+    }
+
+    [data-theme="dark"] {
+      --bg:      #0b0b0b;
+      --nav-bg:  rgba(11,11,11,0.95);
+      --text:    #d9d9d9;
+      --t2:      #737373;
+      --t3:      #2e2e2e;
+      --accent:  #7ea8be;
+      --rule:    #1e1e1e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 15.5px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: rgba(126,168,190,0.18); }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--t3); }
+
+    .ac { color: var(--accent); }
+
+    /* nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 0 var(--pad);
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      z-index: 100;
+    }
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-shrink: 0;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--t2);
+      letter-spacing: 0.03em;
+      transition: color 0.14s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); }
+    .nav-icon {
+      display: flex;
+      align-items: center;
+      color: var(--t2);
+      transition: color 0.14s;
+    }
+    .nav-icon:hover { color: var(--text); }
+    .nav-icon svg { display: block; }
+    .nav-email { display: inline; }
+    @media (max-width: 640px) { .nav-email { display: none; } }
+    .theme-btn {
+      background: none;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--t2);
+      cursor: pointer;
+      padding: 2px 7px;
+      transition: color 0.14s, border-color 0.14s;
+    }
+    .theme-btn:hover { color: var(--text); border-color: var(--t2); }
+
+    /* page wrap */
+    .wrap {
+      max-width: var(--mw);
+      margin: 0 auto;
+      padding: 0 var(--pad);
+    }
+
+    /* section label */
+    .sec-label {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      color: var(--t2);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 10px;
+      margin-bottom: 36px;
+    }
+
+    /* shared section wrapper */
+    .page-section {
+      max-width: var(--mw);
+      margin: 0 auto;
+      padding: 32px var(--pad);
+    }
+
+    /* projects */
+    .proj-entry {
+      border-top: 1px solid var(--rule);
+      padding: 22px 0;
+    }
+    .sec-label + .proj-entry { border-top: none; }
+    .proj-entry:last-child { border-bottom: 1px solid var(--rule); }
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 5px;
+    }
+    .proj-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .proj-signal {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .proj-stack {
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      color: var(--t3);
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+    .proj-desc {
+      font-size: 0.9rem;
+      color: var(--t2);
+      line-height: 1.78;
+    }
+    .proj-desc p + p { margin-top: 10px; }
+    .proj-desc code {
+      font-family: var(--mono);
+      font-size: 0.82em;
+      color: var(--text);
+    }
+    .proj-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      color: var(--t2);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--t3);
+      transition: color 0.14s, text-decoration-color 0.14s;
+    }
+    .proj-link:hover { color: var(--text); text-decoration-color: var(--accent); }
+
+
+    /* bullet list */
+    .exp-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 0.9rem;
+      color: var(--t2);
+      line-height: 1.72;
+    }
+    .exp-list li::before {
+      content: '·  ';
+      color: var(--t3);
+    }
+
+    /* footer */
+    footer {
+      border-top: 1px solid var(--rule);
+      max-width: var(--mw);
+      margin: 0 auto;
+      padding: 48px var(--pad) 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .footer-name {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      color: var(--t2);
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 22px;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--t2);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--t3);
+      transition: color 0.14s, text-decoration-color 0.14s;
+    }
+    .footer-links a:hover { color: var(--text); text-decoration-color: var(--accent); }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--t3);
+    }
+
+    @media (max-width: 580px) {
+      .proj-header { flex-direction: column; gap: 4px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name"><a href="index.html">Thomas Han</a></span>
+  <div class="nav-links">
+    <a href="about.html">about</a>
+    <a href="projects.html" class="active">projects</a>
+    <a href="resume.pdf" target="_blank">resume ↗</a>
+    <a href="mailto:thomas.han.cs@gmail.com" class="nav-icon" aria-label="Email">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+    </a>
+    <a href="https://github.com/NotTacoz" target="_blank" rel="noopener" class="nav-icon" aria-label="GitHub">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
+    </a>
+    <a href="https://linkedin.com/in/thomas-han1" target="_blank" rel="noopener" class="nav-icon" aria-label="LinkedIn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">dark</button>
+  </div>
+</nav>
+
+<div class="page-section" style="padding-top: calc(48px + 32px);">
+  <p class="sec-label">Selected Work</p>
+
+  <div class="proj-entry">
+    <div class="proj-header">
+      <span class="proj-title">QuantCode — Local Quant Interview Prep System</span>
+      <span class="proj-signal">FSRS · subprocess judge</span>
+    </div>
+    <p class="proj-stack">Next.js 14 · FastAPI · SQLite · C++20 · Python &nbsp;·&nbsp; <a href="https://github.com/NotTacoz" target="_blank" rel="noopener" class="proj-link" style="margin:0">github ↗</a></p>
+    <div class="proj-desc">
+      <p>Self-hosted interview prep platform targeting quantitative developer roles. The execution backend spawns compiler subprocesses (<code>g++</code> with selectable C++ standard up to C++20, <code>python3</code>), capturing stdout against expected output or running assertion-based test drivers with stderr surfaced as structured diagnostics.</p>
+      <p>Scheduling engine implements FSRS-4.5 from specification — tracking per-item <code>stability</code>, <code>difficulty</code>, and discrete queue state (<code>new → learning → review → relearning → leech</code>) with the full forgetting-curve model driving next-review intervals. A dependency graph maps C++ topics to learncpp.com chapters with quant-relevance weights; the daily scheduler traverses the graph interleaving cards across topic clusters with per-topic caps and deduplication. No external tooling; fully self-contained and offline.</p>
+    </div>
+  </div>
+
+  <div class="proj-entry">
+    <div class="proj-header">
+      <span class="proj-title">Orderbook — C++ Limit Order Book</span>
+      <span class="proj-signal">C++20</span>
+    </div>
+    <p class="proj-stack">C++20 · std::map · std::list · std::unordered_map</p>
+    <div class="proj-desc">
+      <ul class="exp-list">
+        <li>Bids and asks stored in sorted <code>std::map</code>s (descending/ascending), each price level holding a <code>std::list&lt;Order&gt;</code> to preserve FIFO queue semantics</li>
+        <li>Cancel and modify are O(1) via an <code>unordered_map</code> of iterators into per-level lists — no full scan. Modify re-queues only on volume increase, preserving priority for partial fills</li>
+      </ul>
+    </div>
+    <a href="https://github.com/NotTacoz/orderbook" class="proj-link" target="_blank" rel="noopener">github.com/NotTacoz/orderbook ↗</a>
+  </div>
+
+  <div class="proj-entry">
+    <div class="proj-header">
+      <span class="proj-title">taco_stl — STL Container Reimplementations</span>
+      <span class="proj-signal">C++20 · Python</span>
+    </div>
+    <p class="proj-stack">C++20 · Python</p>
+    <div class="proj-desc">
+      <p>From-scratch reimplementations of core STL containers against the standard's complexity and iterator-invalidation guarantees: <code>std::vector</code> (dynamic array, amortised O(1) push_back, documented reallocation contract), <code>std::list</code> (doubly-linked, O(1) splice, cache-locality cost versus contiguous alternatives), <code>std::priority_queue</code> (binary heap over vector backing, sift-up/sift-down with index arithmetic), <code>std::unordered_map</code> (separate chaining, configurable load factor with full bucket redistribution on rehash).</p>
+      <p><code>std::deque</code> implemented twice — ring-buffer variant (O(1) front/back, no reallocation, fixed capacity) and segmented-array variant matching the standard's reference-stability contract. The dual implementation surfaces where each approach's constant factors diverge under sequential versus random-access workloads.</p>
+    </div>
+  </div>
+
+  <div class="proj-entry">
+    <div class="proj-header">
+      <span class="proj-title">Bee Behaviour Simulation</span>
+      <span class="proj-signal">O(N²) → O(N)</span>
+    </div>
+    <p class="proj-stack">Python · NumPy · Pygame &nbsp;·&nbsp; <a href="https://github.com/NotTacoz/Bee-Sim" target="_blank" rel="noopener" class="proj-link" style="margin:0">github ↗</a></p>
+    <div class="proj-desc">
+      <ul class="exp-list">
+        <li>2D ecosystem: 500+ bee agents across 2 hives, 9 respawning flower nodes; Boids flocking for swarm cohesion, foraging state machine for hive-to-flower routing</li>
+        <li>Spatial hash grid reduced neighbour lookup from O(N²) to O(N) per frame — sustaining 60+ FPS at full agent count</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="proj-entry">
+    <div class="proj-header">
+      <span class="proj-title">Profet — Supply Chain Risk Platform</span>
+      <span class="proj-signal">2nd · $1,500 · VisagioX · Pre-Accelerator</span>
+    </div>
+    <p class="proj-stack">TypeScript · Next.js · PostgreSQL · Socket.IO · MapLibre GL · LLM &nbsp;·&nbsp; <a href="https://github.com/NotTacoz" target="_blank" rel="noopener" class="proj-link" style="margin:0">github ↗</a></p>
+    <div class="proj-desc">
+      <p>Real-time supply chain risk platform built in 48 hours. Supply chains modelled as directed graphs; live risk propagation via Socket.IO with per-node LLM-backed assessments and geospatial rendering via MapLibre GL. Selected for 5-week Pre-Accelerator.</p>
+    </div>
+  </div>
+
+  <div class="proj-entry">
+    <div class="proj-header">
+      <span class="proj-title">Pipe Navigation Robot</span>
+      <span class="proj-signal">★ Most Pyrrhic · $600 · ComSSA</span>
+    </div>
+    <p class="proj-stack">Python · A* · Hardware &nbsp;·&nbsp; <a href="https://github.com/NotTacoz" target="_blank" rel="noopener" class="proj-link" style="margin:0">github ↗</a></p>
+    <div class="proj-desc">
+      <p>Autonomous robot navigating industrial pipe networks. A* path-planning with real-time obstacle avoidance for constrained pipe geometries. Functioning hardware prototype built and demonstrated to Microsoft &amp; Deloitte judges in 48 hours. Did not place — awarded <em>Most Pyrrhic</em> for most ambitious attempt.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-name">Thomas Han &nbsp;·&nbsp; Perth, WA &nbsp;·&nbsp; <span class="ac">2026</span></span>
+  <div class="footer-links">
+    <a href="mailto:thomas.han.cs@gmail.com">thomas.han.cs@gmail.com</a>
+    <a href="https://github.com/NotTacoz" target="_blank" rel="noopener">github.com/NotTacoz</a>
+    <a href="https://linkedin.com/in/thomas-han1" target="_blank" rel="noopener">linkedin.com/in/thomas-han1</a>
+    <a href="resume.pdf" download="Thomas_Han_Resume.pdf" target="_blank">resume.pdf ↗</a>
+  </div>
+  <span class="footer-copy">Curtin University · B.Eng (Mechatronics Hons) &amp; B.Sc (Computer Science) · 2025–2028</span>
+</footer>
+
+<script>
+/* ── THEME TOGGLE ── */
+(function () {
+  var html = document.documentElement;
+  var btn  = document.getElementById('themeToggle');
+  function apply(theme) {
+    if (theme === 'dark') html.setAttribute('data-theme', 'dark');
+    else html.removeAttribute('data-theme');
+    if (btn) btn.textContent = theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', theme);
+  }
+  var current = html.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  if (btn) btn.textContent = current === 'dark' ? 'light' : 'dark';
+  if (btn) btn.addEventListener('click', function () {
+    apply(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>
